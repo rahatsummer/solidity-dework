@@ -1,0 +1,42 @@
+{
+  "contracts/Dwork.sol": {
+    "__sources__": {
+      "contracts/Dwork.sol": {
+        "content": "// SPDX-License-Identifier: GPL-3.0\r\npragma solidity ^0.8.24;",
+        "file": "contracts/Dwork.sol"
+      }
+    }
+  },
+  "contracts/types/DeworkType.sol": {
+    "__sources__": {}
+  },
+  "contracts/Dework.sol": {
+    "./types/DeworkTypes.sol": "contracts/types/DeworkTypes.sol",
+    "__sources__": {
+      "contracts/Dework.sol": {
+        "content": "// SPDX-License-Identifier: GPL-3.0\r\npragma solidity ^0.8.24;\r\n\r\nimport {FreeLancerProfile, EmployerProfile} from \"./types/DeworkTypes.sol\";\r\n\r\n\r\ncontract Dework {\r\n    uint connectFee = 100;\r\n    address public initialOwner;\r\n\r\n    FreeLancerProfile[] public freeLancerProifles;\r\n    EmployerProfile[] public employerProfiles;\r\n\r\n    constructor(address _initialOwner){\r\n        initialOwner = _initialOwner;\r\n    }\r\n    \r\n    function getNumberOfRegisterFreeLancers() public view returns(uint256){\r\n       return freeLancerProifles.length;\r\n    }\r\n\r\n    function registerFreeLancerProfile(\r\n         string calldata name,\r\n         uint8 experienceYears,\r\n         uint256 hourlyRateWei\r\n    ) external  {\r\n       uint256 freeLancerId = getNumberOfRegisterFreeLancers();\r\n\r\n       FreeLancerProfile memory freeLancerProifle = FreeLancerProfile({\r\n             id: freeLancerId,\r\n             name: name,\r\n             wallet: msg.sender,\r\n             experienceYears: experienceYears,\r\n             isAvailableHire:true,\r\n             hourlyRateWei:hourlyRateWei\r\n   \r\n       });\r\n       freeLancerProifles.push(freeLancerProifle);\r\n    }\r\n\r\n     function getFreeLancerProfile() public view returns(FreeLancerProfile[] memory) {\r\n        return freeLancerProifles;\r\n     }\r\n\r\n     function updateHourlyRate(uint _hourlyRate) public{\r\n       \r\n     }\r\n\r\n    //  function getHourlyRate() public view returns(uint){\r\n    //     return hourlyRate;\r\n    //  }\r\n\r\n  \r\n    function getNumberOfRegisteredEmployers() public view returns (uint256){\r\n        return employerProfiles.length;\r\n    }\r\n    \r\n    function registerEmployerProfile(string calldata employerName) external  {\r\n        uint256 employerId = getNumberOfRegisteredEmployers();\r\n\r\n        EmployerProfile memory employerProfile = EmployerProfile({\r\n            id: employerId,\r\n            name: employerName,\r\n            wallet: msg.sender,\r\n            isHired: true\r\n\r\n        });\r\n        employerProfiles.push(employerProfile);\r\n    }    \r\n\r\n}\r\n\r\n\r\n    \r\n   \r\n\r\n",
+        "file": "contracts/Dework.sol"
+      },
+      "contracts/types/DeworkTypes.sol": {
+        "content": "// SPDX-License-Identifier: GPL-3.0\r\npragma solidity ^0.8.24;\r\nstruct FreeLancerProfile{\r\n    uint256 id;\r\n    string name;\r\n    address wallet;\r\n    uint8 experienceYears;\r\n    bool isAvailableHire;\r\n    uint256 hourlyRateWei;\r\n}\r\n\r\nstruct EmployerProfile{\r\n    uint256 id;\r\n    string name;\r\n    address wallet;\r\n    bool isHired;\r\n}",
+        "file": "contracts/types/DeworkTypes.sol"
+      }
+    }
+  },
+  "contracts/HelloWorld.sol": {
+    "__sources__": {
+      "contracts/HelloWorld.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity >=0.6.12 <0.9.0;\n\ncontract HelloWorld {\n  /**\n   * @dev Prints Hello World string\n   */\n  function print() public pure returns (string memory) {\n    return \"Hello World!\";\n  }\n}\n",
+        "file": "contracts/HelloWorld.sol"
+      }
+    }
+  },
+  "contracts/ChainTask.sol": {
+    "__sources__": {
+      "contracts/ChainTask.sol": {
+        "content": "\r\n// SPDX-License-Identifier: MIT\r\npragma solidity 0.8.24;\r\n\r\ncontract ChainTask{\r\n    struct Task{\r\n        uint256 id;\r\n        string content;\r\n        bool completed;\r\n        uint256 createdAt;\r\n    }\r\n\r\n    mapping(address => Task[]) private _tasks;\r\n    mapping(address => uint256) private _nextId;\r\n\r\n    event TaskCreated(address indexed owner, uint256 indexed id, string content);\r\n    event TaskToggled(address indexed owner, uint256 indexed id, bool completed);\r\n    event TaskDeleted(address indexed owner, uint256 indexed id);\r\n\r\n    error EmptyContent();\r\n    error TaskNotFound(uint256 id);\r\n\r\n    function createTask(string calldata _content) external {\r\n        if(bytes(_content).length == 0) revert EmptyContent();\r\n\r\n        uint256 newId = _nextId[msg.sender];\r\n\r\n        _tasks[msg.sender].push(\r\n            Task({\r\n                id: newId,\r\n                content: _content,\r\n                completed: false,\r\n                createdAt: block.timestamp\r\n\r\n                // Task[] = Array of tasks,\r\n                // _tasks = Mapping: Address → Task[]\r\n            })\r\n        );\r\n\r\n        _nextId[msg.sender] = newId + 1;\r\n\r\n        emit TaskCreated(msg.sender, newId, _content);\r\n    }\r\n\r\n    function toggleTask(uint256 _id) external {\r\n        uint256 index = _findIndex(msg.sender, _id);\r\n\r\n        Task storage task = _tasks[msg.sender][index]; // Get all tasks belonging to the current user. Get one specific task from that user's task array.\r\n        // storage means task is a reference to the actual task stored permanently on the blockchain.\r\n        \r\n        task.completed = !task.completed;\r\n\r\n        emit TaskToggled(msg.sender, _id, task.completed);\r\n    }\r\n\r\n    function deleteTask (uint256 _id) external {\r\n         uint256 index = _findIndex(msg.sender, _id);\r\n\r\n         Task[] storage list = _tasks[msg.sender];\r\n\r\n         list[index] = list[list.length -1 ];\r\n\r\n         list.pop();\r\n\r\n         emit TaskDeleted(msg.sender, _id);\r\n    }\r\n\r\n    function getMyTask() external view returns(Task[] memory){\r\n        return _tasks[msg.sender];\r\n    }\r\n\r\n    // returns all tasks belonging to any address provided as _owner.\r\n    function getTaskOf(address _owner) external view returns(Task[] memory){\r\n        return _tasks[_owner];\r\n    }\r\n\r\n    function taskGetCount(address _owner) external view returns(uint256){\r\n        return _tasks[_owner].length;\r\n    }\r\n\r\n    function _findIndex(address _owner, uint256 _id) private view returns (uint256){\r\n        Task[] storage list = _tasks[_owner];\r\n\r\n        for(uint256 i=0; i < list.length; i++){\r\n            if(list[i].id == _id){\r\n                return i;\r\n            }\r\n        }\r\n\r\n        revert TaskNotFound(_id);\r\n    }\r\n}",
+        "file": "contracts/ChainTask.sol"
+      }
+    }
+  }
+}

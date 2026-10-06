@@ -1,0 +1,127 @@
+{
+	"compiler": {
+		"version": "0.8.34+commit.80d5c536"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "employerProfiles",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "wallet",
+						"type": "address"
+					},
+					{
+						"internalType": "bool",
+						"name": "isHired",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getNumberOfRegisteredEmployers",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "initialOwner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					}
+				],
+				"name": "registerEmployerProfile",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/Dework.sol": "DeEmployee"
+		},
+		"evmVersion": "osaka",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/Dework.sol": {
+			"keccak256": "0x833eebd4dd3b69bee043f262d4cc59d7e1b326b6f8d965e59c63c679beb138ba",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://e903af5c89d4d6434a5957ae95bff692eb10cea6ccf299f71e605502a5b0b114",
+				"dweb:/ipfs/QmabrbEqod1kqiijgQCJwSkVfceLRXNBjxCNFaK8tLYR32"
+			]
+		},
+		"contracts/types/DeworkTypes.sol": {
+			"keccak256": "0x4c8c16180e7edbbbe61fdbff942c14a6e2b7359921a8d5f6770f6a8afa525f98",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://48162c7798cd309989d73283969fc201ffc8554e7cc1819d30cf693d36da3f70",
+				"dweb:/ipfs/QmataLmRFanKnazsDN38cUESiZLjoqudPoGAPNtX2FG1hw"
+			]
+		}
+	},
+	"version": 1
+}
