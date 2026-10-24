@@ -1,18 +1,14 @@
 {
-	"id": "00e82ad41f6bd33f8cd789db590cdcdd",
+	"id": "26fb8b31adb74f1ec61574151cc63a17",
 	"_format": "hh-sol-build-info-1",
 	"solcVersion": "0.8.34",
 	"solcLongVersion": "0.8.34+commit.80d5c536",
 	"input": {
 		"language": "Solidity",
-		"sources": {
-			"contracts/types/EmployerTypes.sol": {
-				"content": "// SPDX-License-Identifier: GPL-3.0\r\npragma solidity ^0.8.24;\r\nstruct EmployerProfile{\r\n    uint256 id;\r\n    string name;\r\n    address wallet;\r\n    bool isHired;\r\n}"
-			}
-		},
 		"settings": {
+			"viaIR": true,
 			"optimizer": {
-				"enabled": false,
+				"enabled": true,
 				"runs": 200
 			},
 			"outputSelection": {
@@ -36,6 +32,11 @@
 				}
 			},
 			"remappings": []
+		},
+		"sources": {
+			"contracts/types/EmployerTypes.sol": {
+				"content": "// SPDX-License-Identifier: GPL-3.0\r\npragma solidity ^0.8.24;\r\nstruct EmployerProfile{\r\n    uint256 id;\r\n    string name;\r\n    address wallet;\r\n    bool isHired;\r\n}"
+			}
 		}
 	},
 	"output": {
